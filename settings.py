@@ -20,7 +20,10 @@ def settings():
               "DarkBlue3",
               "DarkBlue4",
               "DarkBlue5",
-              "DarkBlue6"]
+              "DarkBlue6",
+              "DarkPurple4",
+              "DarkTeal10",
+              "Reds"]
     BackGroundColor = ['Red', 'Green', 'Blue', 'Cyan', 'White', 'Black', 'Purple', 'Pink']
     textcolor = ['red', 'blue', 'blue', 'cyan', 'white', 'black', 'purple', 'pink']
     layout=[

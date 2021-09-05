@@ -3,8 +3,10 @@ from PySimpleGUI.PySimpleGUI import HorizontalSeparator, theme_text_color
 import os
 import subprocess
 from settings import settings
+from extension import extension
+from todo import todo
 def main():
-    menu_def = [["File",['Save', 'New Window']],['Settings',["Settings"]]]
+    menu_def = [["File",['Save', 'New Window']],['Settings',["Settings", "Extension Settings"]], ['Extensions',["To Do"]]]
     with open("UserInformation//theme.txt", "r") as file:
         readfile = file.read()
     with open("UserInformation//textcolor.txt", "r") as file:
@@ -28,14 +30,16 @@ def main():
     window = sg.Window("Stein", layout, size=(1910,950), resizable="True")
     while True:
         if not os.path.exists("UserInformation//backgroundcolor.txt"):
-            sg.PopupError("Couldn't backgroundcolor.txt!")      
+            sg.PopupError("Couldn't find backgroundcolor.txt!")      
             break
         elif not os.path.exists("UserInformation//textcolor.txt"):
-            sg.PopupError("Couldn't tasks.txt!")      
+            sg.PopupError("Couldn't find tasks.txt!")      
             break
         elif not os.path.exists("UserInformation//theme.txt"):
-            sg.PopupError("Couldn't theme.txt!")      
+            sg.PopupError("Couldn't find theme.txt!")      
             break
+        elif not os.path.exists("extensions.txt"):
+            sg.PopupError("Couldn't find extensions.txt")
         event, values = window.read()
         if event == sg.WIN_CLOSED:
             break
@@ -89,7 +93,16 @@ def main():
             if values["LOAD"] == "":
                 sg.PopupError("FILE NOT SELECTED")  
             else:
-                writefile()                  
+                writefile()               
+        if event == "To Do":
+            file = open("extensions.txt", "r")
+            readlines = file.readlines()
+            if readlines[0] == "todo:loaded":
+                         todo()
+            else:
+                         sg.PopupError('Extension Not Loaded!')                      
+        if event == "Extension Settings":
+            extension()    
             
 
 if __name__ == '__main__':
